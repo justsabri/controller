@@ -3,6 +3,19 @@ import logging
 from logging.handlers import RotatingFileHandler
 from datetime import datetime
 
+
+import sys
+import traceback
+
+def custom_excepthook(exc_type, exc_value, exc_traceback):
+    with open('error_log.txt', 'a') as f:
+        print(f"发生错误：{exc_type} - {exc_value}", file=f)
+        traceback.print_tb(exc_traceback, file=f)
+        f.write("\n")
+    sys.__excepthook__(exc_type, exc_value, exc_traceback)  # 调用默认的异常处理函数（可选）
+ 
+sys.excepthook = custom_excepthook
+
 class TimeStampedRotatingFileHandler(RotatingFileHandler):
     def __init__(self, filename, maxBytes=0, backupCount=0, encoding=None, delay=False):
         # 记录日志文件的初始创建时间

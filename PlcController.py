@@ -9,10 +9,14 @@ PLC_PORT = 502
 data_prot = {
     'auto_mode' : [314, 1], # data : [addr, count]
     'dest1' : [158, 2],
+    'current1' : [166, 2],
     'lat' : [151, 2],
     'lon' : [153, 2],
     'height' : [155, 2],
-    'switch' : [157, 1]
+    'switch' : [157, 1],
+    'rolling' : [174, 2],
+    'trim' : [176, 2],
+    'speed': [178, 2]
 }
 
 logger = Logger.GetLogger(__name__)
@@ -56,17 +60,13 @@ def getData(client, data_name):
             shift_bit = 4 - len(reg_hex)
             hex_res += reg_hex + '0' * shift_bit
         
-        # 将十六进制字符串转换为字节
-        byte_res = bytes.fromhex(hex_res)
-
-        # 使用struct将字节数据解析为浮点数
-        float_res = struct.unpack('>f', byte_res)[0]  # '>f' 表示大端格式的32位浮点数
+        res = hex_to_float_or_int(hex_res)
 
         # logger.info(f"Read Holding Registers {addr} to {addr + count - 1}: {registers}")
         # 示例：访问特定寄存器的值
         # logger.info(f"Value of Register {addr}: {registers[0]}")  # 第1个寄存器值
 
-        return float_res
+        return res
 
 def setCmd(client, data_name, data):
     if client is None:
@@ -85,11 +85,23 @@ def setCmd(client, data_name, data):
     #     e = 'data error ' + data
     #     logger.error(e)
     rigister_data = []
-    #拆分data
-    # for i in count:
-    #     print(int(data[i:i+2]))
-    #     rigister_data.append(int(data[i:i+2]))
-    rigister_data.append(data)
+    hex_str = ''
+    if count == 4:
+        hex_str = float_to_ieee754_hex(data)
+    elif count == 2:
+        hex_str = float_to_half_precision_hex(data)
+    elif count == 1:
+        hex_str = data + ''
+    elif count == 0.5:
+        pass
+    
+    if hex_str is None:
+        return
+    #拆分 hex_str
+    for i in count:
+        print(int(hex_str[i*2:i*2+2]))
+        rigister_data.append(int(hex_str[i*2:i*2+2]))
+    
     client.write_registers(addr, rigister_data) #[10, 20, 30, 40, 50]
 
 def hex_to_float_or_int(hex_str):
@@ -127,7 +139,23 @@ if __name__ == '__main__':
     #     disconnectPLC(client)
     disconnectPLC(client)
     
+class PlcClient():
+    client = None
+    client_count = 0
+    def __init__(self):
+        if PlcClient.client is None:
+            PlcClient.client = connectPLC()
+            PlcClient.client_count += 1
     
+    def __del__(self):
+        PlcClient.client_count -= 1
+        if PlcClient.client_count == 0:
+            print('disconstruct')
+            disconnectPLC(PlcClient.client)
+            PlcClient.client = None
+
+    def getClient():
+        return PlcClient.client
 
 
 
