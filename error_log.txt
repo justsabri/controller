@@ -1,0 +1,1058 @@
+发生错误：<class 'TypeError'> - disconnect() failed between 'clicked' and all its connections
+  File "e:\深海\截流板\controller\main_ui.py", line 135, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 42, in __init__
+    self.autoRoll.clicked.disconnect()
+
+发生错误：<class 'TypeError'> - disconnect() failed between 'clicked' and all its connections
+  File "e:\深海\截流板\controller\main_ui.py", line 135, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 48, in __init__
+    self.start_test_btn.clicked.disconnect()
+
+发生错误：<class 'TypeError'> - 'module' object is not callable
+  File "e:\深海\截流板\controller\main_ui.py", line 135, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 54, in __init__
+    self.data_acq = DataAcquisition()
+
+发生错误：<class 'TypeError'> - __init__() missing 1 required positional argument: 'feq'
+  File "e:\深海\截流板\controller\main_ui.py", line 135, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 55, in __init__
+    self.alg_process = AlgorithmProcesser()
+
+发生错误：<class 'AssertionError'> - group argument must be None for now
+  File "e:\深海\截流板\controller\main_ui.py", line 135, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 56, in __init__
+    self.sys_monitor = SysMonitor()
+  File "e:\深海\截流板\controller\SystemMonitor.py", line 34, in __init__
+    self.monitor_thread = threading.Thread(self.monitor_thread_proc)
+  File "D:\Python\lib\threading.py", line 818, in __init__
+    assert group is None, "group argument must be None for now"
+
+发生错误：<class 'ModuleNotFoundError'> - No module named 'm_ui.py'; 'm_ui' is not a package
+  File "e:\深海\截流板\controller\main_ui.py", line 5, in <module>
+    from Ui_main_window import Ui_MainWindow
+  File "e:\深海\截流板\controller\Ui_main_window.py", line 201, in <module>
+    from m_ui.py import MWidget
+
+发生错误：<class 'AttributeError'> - 'QLabel' object has no attribute 'getText'
+  File "e:\深海\截流板\controller\main_ui.py", line 139, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 15, in __init__
+    self.m1.m_name.setText(self.m1.m_name.getText() + '1')
+
+发生错误：<class 'AttributeError'> - 'builtin_function_or_method' object has no attribute 'showMessage'
+  File "e:\深海\截流板\controller\main_ui.py", line 172, in connect_and_monitor
+    self.statusBar.showMessage("连接中")
+
+发生错误：<class 'AttributeError'> - 'builtin_function_or_method' object has no attribute 'showMessage'
+  File "e:\深海\截流板\controller\main_ui.py", line 172, in connect_and_monitor
+    self.statusBar.showMessage("连接中")
+
+发生错误：<class 'TypeError'> - getClient() takes 0 positional arguments but 1 was given
+  File "e:\深海\截流板\controller\main_ui.py", line 174, in connect_and_monitor
+    res = self.sys_monitor.start_monitor()
+  File "e:\深海\截流板\controller\SystemMonitor.py", line 47, in start_monitor
+    self.client = PlcClient().getClient()
+
+发生错误：<class 'AttributeError'> - 'DataAcquisition' object has no attribute 'thread_record'
+  File "e:\深海\截流板\controller\main_ui.py", line 77, in on_record_flag_changed
+    file_name = self.data_acq.stop_record()
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 114, in stop_record
+    if not self.thread_record is None:
+
+发生错误：<class 'TypeError'> - 'int' object is not iterable
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 125, in <module>
+    da.startTest(i)
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 72, in startTest
+    setCmd(self.client, 'dest1', i)
+  File "e:\深海\截流板\controller\PlcController.py", line 115, in setCmd
+    for i in count:
+
+发生错误：<class 'ValueError'> - invalid literal for int() with base 10: '0000001e'
+  File "e:\深海\截流板\controller\PLCController.py", line 197, in <module>
+    data = getData(client, name)
+  File "e:\深海\截流板\controller\PLCController.py", line 80, in getData
+    res = hex_to_float_or_int(hex_res, type)
+  File "e:\深海\截流板\controller\PLCController.py", line 136, in hex_to_float_or_int
+    res = int(hex_str)
+
+发生错误：<class 'TypeError'> - 'str' object cannot be interpreted as an integer
+  File "e:\深海\截流板\controller\PLCController.py", line 197, in <module>
+    data = getData(client, name)
+  File "e:\深海\截流板\controller\PLCController.py", line 80, in getData
+    res = hex_to_float_or_int(hex_res, type)
+  File "e:\深海\截流板\controller\PLCController.py", line 136, in hex_to_float_or_int
+    res = int(hex(hex_str))
+
+发生错误：<class 'ValueError'> - invalid literal for int() with base 10: '4e'
+  File "e:\深海\截流板\controller\PLCController.py", line 206, in <module>
+    setCmd(client, 'dest1', 25.5)
+  File "e:\深海\截流板\controller\PLCController.py", line 125, in setCmd
+    print(int(hex_str[i*2:i*2+2]))
+
+发生错误：<class 'struct.error'> - required argument is not an integer
+  File "e:\深海\截流板\controller\PLCController.py", line 209, in <module>
+    setCmd(client, 'dest1', 25.5)
+  File "e:\深海\截流板\controller\PLCController.py", line 130, in setCmd
+    client.write_registers(addr, rigister_data) #[10, 20, 30, 40, 50]
+  File "D:\Python\lib\site-packages\pymodbus\client\mixin.py", line 358, in write_registers
+    return self.execute(no_response_expected, pdu_req_write.WriteMultipleRegistersRequest(address, values,slave=slave,skip_encode=skip_encode))
+  File "D:\Python\lib\site-packages\pymodbus\client\base.py", line 239, in execute
+    return self.transaction.execute(no_response_expected, request)
+  File "D:\Python\lib\site-packages\pymodbus\transaction.py", line 218, in execute
+    response, last_exception = self._transact(
+  File "D:\Python\lib\site-packages\pymodbus\transaction.py", line 292, in _transact
+    packet = self.client.framer.buildFrame(request)
+  File "D:\Python\lib\site-packages\pymodbus\framer\base.py", line 63, in buildFrame
+    data = message.function_code.to_bytes(1,'big') + message.encode()
+  File "D:\Python\lib\site-packages\pymodbus\pdu\register_write_message.py", line 187, in encode
+    packet += struct.pack(">H", value)
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 81, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 146, in decrease_progress
+    self.alg_process.setLocation(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 115, in setLocation
+    setCmd(self.client, name, args[i])
+
+发生错误：<class 'pymodbus.exceptions.ConnectionException'> - Modbus Error: [Connection] Failed to connect[ModbusTcpClient 192.168.0.1:502]
+  File "e:\深海\截流板\controller\main_ui.py", line 84, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 127, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 129, in setLocationByPercent
+    setCmd(self.client, name, args[i] * (self.location_range[1] / 100.0))
+  File "e:\深海\截流板\controller\PlcController.py", line 130, in setCmd
+    client.write_registers(addr, rigister_data) #[10, 20, 30, 40, 50]
+  File "D:\Python\lib\site-packages\pymodbus\client\mixin.py", line 358, in write_registers
+    return self.execute(no_response_expected, pdu_req_write.WriteMultipleRegistersRequest(address, values,slave=slave,skip_encode=skip_encode))
+  File "D:\Python\lib\site-packages\pymodbus\client\base.py", line 238, in execute
+    raise ConnectionException(f"Failed to connect[{self!s}]")
+
+发生错误：<class 'pymodbus.exceptions.ConnectionException'> - Modbus Error: [Connection] Failed to connect[ModbusTcpClient 192.168.0.1:502]
+  File "e:\深海\截流板\controller\main_ui.py", line 84, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 127, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 129, in setLocationByPercent
+    setCmd(self.client, name, args[i] * (self.location_range[1] / 100.0))
+  File "e:\深海\截流板\controller\PlcController.py", line 130, in setCmd
+    client.write_registers(addr, rigister_data) #[10, 20, 30, 40, 50]
+  File "D:\Python\lib\site-packages\pymodbus\client\mixin.py", line 358, in write_registers
+    return self.execute(no_response_expected, pdu_req_write.WriteMultipleRegistersRequest(address, values,slave=slave,skip_encode=skip_encode))
+  File "D:\Python\lib\site-packages\pymodbus\client\base.py", line 238, in execute
+    raise ConnectionException(f"Failed to connect[{self!s}]")
+
+发生错误：<class 'pymodbus.exceptions.ConnectionException'> - Modbus Error: [Connection] Failed to connect[ModbusTcpClient 192.168.0.1:502]
+  File "e:\深海\截流板\controller\main_ui.py", line 84, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 127, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 129, in setLocationByPercent
+    setCmd(self.client, name, args[i] * (self.location_range[1] / 100.0))
+  File "e:\深海\截流板\controller\PlcController.py", line 130, in setCmd
+    client.write_registers(addr, rigister_data) #[10, 20, 30, 40, 50]
+  File "D:\Python\lib\site-packages\pymodbus\client\mixin.py", line 358, in write_registers
+    return self.execute(no_response_expected, pdu_req_write.WriteMultipleRegistersRequest(address, values,slave=slave,skip_encode=skip_encode))
+  File "D:\Python\lib\site-packages\pymodbus\client\base.py", line 238, in execute
+    raise ConnectionException(f"Failed to connect[{self!s}]")
+
+发生错误：<class 'AttributeError'> - 'function' object has no attribute 'setCallback'
+  File "e:\深海\截流板\controller\main_ui.py", line 211, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 69, in __init__
+    self.alg_process.setCallback(self.get_test_progress)
+
+发生错误：<class 'TypeError'> - 'int' object is not iterable
+  File "e:\深海\截流板\controller\PLCController.py", line 217, in <module>
+    setCmd(client, 'auto_mode', 1)
+  File "e:\深海\截流板\controller\PLCController.py", line 127, in setCmd
+    rigister_data = list(r_data)
+
+发生错误：<class 'TypeError'> - 'int' object is not iterable
+  File "e:\深海\截流板\controller\PLCController.py", line 218, in <module>
+    setCmd(client, 'dest1', 25.5)
+  File "e:\深海\截流板\controller\PLCController.py", line 127, in setCmd
+    rigister_data = list(r_data)
+
+发生错误：<class 'AttributeError'> - module 'datetime' has no attribute 'now'
+  File "e:\深海\截流板\controller\main_ui.py", line 75, in on_record_flag_changed
+    self.data_acq.start_record()
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 105, in start_record
+    current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + f".{datetime.now().microsecond // 1000:03d}"
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 128, in <module>
+    time.sleep(3000)
+
+发生错误：<class 'OSError'> - Cannot save file into a non-existent directory: '\data'
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 124, in <module>
+    data_acq.start_record()
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 105, in start_record
+    self.record_df.to_csv(self.record_file_name, index=False, mode='a')
+  File "D:\Python\lib\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "D:\Python\lib\site-packages\pandas\core\generic.py", line 3967, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "D:\Python\lib\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "D:\Python\lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+  File "D:\Python\lib\site-packages\pandas\io\common.py", line 749, in get_handle
+    check_parent_directory(str(handle))
+  File "D:\Python\lib\site-packages\pandas\io\common.py", line 616, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+
+发生错误：<class 'AttributeError'> - 'NoneType' object has no attribute 'start_record'
+  File "e:\深海\截流板\controller\main_ui.py", line 77, in on_record_flag_changed
+    self.alg_process.start_record()
+
+发生错误：<class 'AttributeError'> - 'NoneType' object has no attribute 'start_record'
+  File "e:\深海\截流板\controller\main_ui.py", line 77, in on_record_flag_changed
+    self.alg_process.start_record()
+
+发生错误：<class 'AttributeError'> - 'NoneType' object has no attribute 'set'
+  File "e:\深海\截流板\controller\main_ui.py", line 79, in on_record_flag_changed
+    file_name = self.alg_process.stop_record()
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 190, in stop_record
+    self.record_event.set()
+
+发生错误：<class 'TypeError'> - __init__() missing 1 required positional argument: 'client'
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 214, in <module>
+    alg_process = AlgorithmProcesser(client)
+
+发生错误：<class 'TypeError'> - __init__() missing 2 required positional arguments: 'feq' and 'client'
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 202, in <module>
+    ap = AlgorithmProcesser()
+
+发生错误：<class 'AttributeError'> - 'IPCWindow' object has no attribute 'button'
+  File "e:\深海\截流板\controller\main_ui.py", line 169, in auto_trim
+    if self.button.isChecked():
+
+发生错误：<class 'AttributeError'> - 'NoneType' object has no attribute 'setAlgMode'
+  File "e:\深海\截流板\controller\main_ui.py", line 178, in auto_trim
+    self.alg_process.setAlgMode(1)
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\main_ui.py", line 216, in update_monitor_data
+    def update_monitor_data(self):
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\main_ui.py", line 216, in update_monitor_data
+    def update_monitor_data(self):
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\main_ui.py", line 216, in update_monitor_data
+    def update_monitor_data(self):
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\main_ui.py", line 216, in update_monitor_data
+    def update_monitor_data(self):
+
+发生错误：<class 'KeyboardInterrupt'> - 
+  File "e:\深海\截流板\controller\main_ui.py", line 216, in update_monitor_data
+    def update_monitor_data(self):
+
+发生错误：<class 'TypeError'> - setValue(self, value: int): argument 1 has unexpected type 'NoneType'
+  File "e:\深海\截流板\controller\main_ui.py", line 207, in connect_and_monitor
+    self.left_board_bar.setValue(datas[0])
+
+发生错误：<class 'AttributeError'> - 'QProgressBar' object has no attribute 'setVaule'
+  File "e:\深海\截流板\controller\main_ui.py", line 211, in connect_and_monitor
+    self.right_board_bar.setVaule(datas[1])
+
+发生错误：<class 'AttributeError'> - 'QProgressBar' object has no attribute 'setVaule'
+  File "e:\深海\截流板\controller\main_ui.py", line 211, in connect_and_monitor
+    self.right_board_bar.setVaule(datas[1])
+
+发生错误：<class 'AttributeError'> - 'QProgressBar' object has no attribute 'setVaule'
+  File "e:\深海\截流板\controller\main_ui.py", line 211, in connect_and_monitor
+    self.right_board_bar.setVaule(int(datas[1]))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'IndexError'> - tuple index out of range
+  File "e:\深海\截流板\controller\main_ui.py", line 86, in on_up_clicked
+    self.decrease_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 155, in decrease_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    print(i, name, args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'UnboundLocalError'> - local variable 'str' referenced before assignment
+  File "e:\深海\截流板\controller\main_ui.py", line 89, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 132, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    str = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'UnboundLocalError'> - local variable 'str' referenced before assignment
+  File "e:\深海\截流板\controller\main_ui.py", line 89, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 132, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    str = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'UnboundLocalError'> - local variable 'str' referenced before assignment
+  File "e:\深海\截流板\controller\main_ui.py", line 89, in on_down_clicked
+    self.increase_progress('both')
+  File "e:\深海\截流板\controller\main_ui.py", line 132, in increase_progress
+    self.alg_process.setLocationByPercent(mode, processBar[0].value(), processBar[1].value())
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 141, in setLocationByPercent
+    str = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
+
+发生错误：<class 'RuntimeError'> - threads can only be started once
+  File "e:\深海\截流板\controller\main_ui.py", line 182, in auto_trim
+    self.alg_process.start_process()
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 50, in start_process
+    self.data_thread.start()
+  File "D:\Python\lib\threading.py", line 887, in start
+    raise RuntimeError("threads can only be started once")
+
+发生错误：<class 'RuntimeError'> - threads can only be started once
+  File "e:\深海\截流板\controller\main_ui.py", line 182, in auto_trim
+    self.alg_process.start_process()
+  File "e:\深海\截流板\controller\AlgProcesser.py", line 50, in start_process
+    self.data_thread.start()
+  File "D:\Python\lib\threading.py", line 887, in start
+    raise RuntimeError("threads can only be started once")
+
+发生错误：<class 'AttributeError'> - 'DataAcquisition' object has no attribute 'enum_thread'
+  File "e:\深海\截流板\controller\main_ui.py", line 85, in closeEvent
+    self.disconnect()  # 标记对象删除
+  File "e:\深海\截流板\controller\main_ui.py", line 243, in disconnect
+    self.data_acq.stopTest()
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 89, in stopTest
+    if not self.enum_thread is None:
+
+发生错误：<class 'AttributeError'> - 'DataAcquisition' object has no attribute 'thread_test'
+  File "e:\深海\截流板\controller\main_ui.py", line 85, in closeEvent
+    self.disconnect()  # 标记对象删除
+  File "e:\深海\截流板\controller\main_ui.py", line 243, in disconnect
+    self.data_acq.stopTest()
+  File "e:\深海\截流板\controller\DataAcquisition.py", line 93, in stopTest
+    if not self.thread_test is None:
+
+发生错误：<class 'AttributeError'> - 'IPCWindow' object has no attribute 'update_test_progress'
+  File "e:\深海\截流板\controller\main_ui.py", line 272, in <module>
+    myWin = IPCWindow()
+  File "e:\深海\截流板\controller\main_ui.py", line 26, in __init__
+    self.update_test_progress_signal.connect(self.update_test_progress)
+
