@@ -1,14 +1,18 @@
-import sys
-import time
+import sys, os
+import time, joblib 
 from AlgProcesser import AlgorithmProcesser
 from DataAcquisition import DataAcquisition
 import Logger
 from SystemMonitor import SysMonitor
 from PlcAdapter import PlcAdapter
+from connect_ui import ConnectWidget
 from m_ui import MWidget
 from Ui_main_window import Ui_MainWindow
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
-from PyQt5.QtCore import QTimer, pyqtSignal
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QFileDialog
+from PyQt5.QtCore import QTimer, pyqtSignal, QEventLoop
+import pandas as pd
+import numpy as np
+from scipy.interpolate import interp1d
 
 class IPCWindow(QMainWindow, Ui_MainWindow):
     update_progress_signal = pyqtSignal(int, int)
@@ -20,6 +24,8 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
 
         self.m1.m_name.setText(self.m1.m_name.text() + '1')
         self.m2.m_name.setText(self.m2.m_name.text() + '2')
+        self.m1.m_name.setText(self.m1.m_name.text() + '3')
+        self.m2.m_name.setText(self.m2.m_name.text() + '4')
 
         # 连接 stateChanged 信号到槽函数
         self.update_progress_signal.connect(self.update_progress)
@@ -61,14 +67,22 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
         # self.autoTrim.clicked.disconnect()
         self.autoTrim.setCheckable(True)
         self.autoTrim.clicked.connect(self.auto_trim)
+        self.speed_first.setCheckable(True)
+        self.speed_first.clicked.connect(self.set_speed_first)
 
         # tab2
         # self.start_test_btn.clicked.disconnect()
         self.start_test_btn.clicked.connect(self.start_test)
         # self.stop_test_btn.clicked.disconnect()
         self.stop_test_btn.clicked.connect(self.stop_test)
+        self.browse_speed_file_btn.clicked.connect(self.open_speed_file)
+        self.generate_model_btn.clicked.connect(self.generate_model)
+
+        # init ui
+        self.led.setStyleSheet("background-color: red; border-radius: 10px;")
 
         # init server resources
+        self.connect_widget = None
         self.adapter = None
         self.data_acq = None
         self.alg_process = None
@@ -78,7 +92,7 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
         self.auto_mode = 0
 
         # connect
-        self.actionconnect.triggered.connect(self.connect_and_monitor)
+        self.actionconnect.triggered.connect(self.show_connect)
 
     def __del__(self):
         self.disconnect()
@@ -177,6 +191,24 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
     def stop_test(self):
         self.data_acq.stopTest()
 
+    def open_speed_file(self):
+        file_path, _ = QFileDialog.getOpenFileName(None, "选择速度优先文件", "", "All Files (*);;Text Files (*.txt)")
+        if file_path:
+            self.filePath.setText(file_path)
+
+    def generate_model(self):
+        path = self.filePath.text()
+        df = pd.read_csv(path)
+        origin_speed = np.array(df["初始航速"].tolist())
+        opt_speed = np.array(df["最优航速"].tolist())
+        extension = np.array(df["伸缩量"].tolist())
+
+        os.makedirs('model', exist_ok=True)
+        speed2extension_model = interp1d(origin_speed, extension, kind='cubic', fill_value='extrapolate')
+        optspeed2extension_model = interp1d(opt_speed, extension, kind='cubic', fill_value='extrapolate')
+        joblib.dump(speed2extension_model, 'model/speed2extension_model.pkl')
+        joblib.dump(optspeed2extension_model, 'model/optspeed2extension_model.pkl')
+
     def get_progress(self, left, right):
         self.update_progress_signal.emit(left, right)
 
@@ -214,13 +246,32 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
             self.alg_process.stop_process()
             self.auto_mode = 0
 
-    def connect_and_monitor(self):
+    def set_speed_first(self):
+        """按钮点击时执行的逻辑"""
+        if self.speed_first.isChecked():
+            self.alg_process.setAlgMode(3)
+            self.alg_process.start_process()
+        else:
+            self.alg_process.stop_process()
+
+    def show_connect(self):
+        if self.connect_widget is None:
+            self.connect_widget = ConnectWidget()
+            self.connect_widget.connect_signal.connect(lambda ip, port: self.connect_and_monitor(ip, port))
+        self.connect_widget.show()
+        # 创建事件循环，阻塞代码执行
+        # loop = QEventLoop()
+        # connect_widget.destroyed.connect(loop.quit)  # 当子窗口关闭时，退出事件循环
+        # loop.exec_()  # 进入事件循环，阻塞主线程
+
+    def connect_and_monitor(self, ip, port):
         # self.statusBar.showMessage("连接中")
         # init server resources
         self.adapter = PlcAdapter()
         if not self.adapter.is_connected():
             QMessageBox.critical(self, "失败", "连接PLC失败!")
             return
+        self.led.setStyleSheet("background-color: green; border-radius: 10px;")
         self.data_acq = self.adapter.get_data_acq()
         self.data_acq.setCallback(self.get_test_progress)
         self.alg_process = self.adapter.get_alg_process()
@@ -229,7 +280,7 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
 
         # init progress bar
         datas = self.sys_monitor.getInitValue()
-        if 0<= datas[0] <= 100 and 0<= datas[0] <= 100:
+        if -0.2 <= datas[0] <= 100.2 and -0.2 <= datas[0] <= 100.2:
             self.left_board_bar.setValue(int(datas[0]))
             self.right_board_bar.setValue(int(datas[1]))
         else:
@@ -262,20 +313,34 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
 
     def update_monitor_data(self):
         datas = self.sys_monitor.getMonitorData()
-        self.m1.current.setText(str(datas[0]))
-        self.m1.voltage.setText(str(datas[1]))
-        self.m1.power.setText(str(datas[2]))
-        self.m1.temperature.setText(str(datas[3]))
-        self.m2.current.setText(str(datas[4]))
-        self.m2.voltage.setText(str(datas[5]))
-        self.m2.power.setText(str(datas[6]))
-        self.m2.temperature.setText(str(datas[7]))
-        self.trim_display.setText(str(datas[8]))
-        self.roll_display.setText(str(datas[9]))
+        self.m1.current.setText(str(datas[2]))
+        self.m1.voltage.setText(str(datas[3]))
+        self.m1.power.setText(str(datas[4]))
+        self.m1.temperature.setText(str(datas[5]))
+
+        self.m2.current.setText(str(datas[6]))
+        self.m2.voltage.setText(str(datas[7]))
+        self.m2.power.setText(str(datas[8]))
+        self.m2.temperature.setText(str(datas[9]))
+
+        self.m3.current.setText(str(datas[10]))
+        self.m3.voltage.setText(str(datas[11]))
+        self.m3.power.setText(str(datas[12]))
+        self.m3.temperature.setText(str(datas[13]))
+
+        self.m4.current.setText(str(datas[14]))
+        self.m4.voltage.setText(str(datas[15]))
+        self.m4.power.setText(str(datas[16]))
+        self.m4.temperature.setText(str(datas[17]))
+
+        self.trim_display.setText(str(round(datas[0], 2)))
+        self.roll_display.setText(str(round(datas[1], 2)))
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    with open(r"resources/style.qss", "r") as file:
+        app.setStyleSheet(file.read())
     myWin = IPCWindow()
     myWin.show()
     sys.exit(app.exec_())

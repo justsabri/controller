@@ -8,7 +8,7 @@ import sys
 import traceback
 
 def custom_excepthook(exc_type, exc_value, exc_traceback):
-    with open('error_log.txt', 'a') as f:
+    with open('log/error_log.txt', 'a') as f:
         print(f"发生错误：{exc_type} - {exc_value}", file=f)
         traceback.print_tb(exc_traceback, file=f)
         f.write("\n")

@@ -1,5 +1,5 @@
 from pymodbus.client.tcp import ModbusTcpClient
-import struct
+import struct, joblib, os
 import numpy as np
 import Logger
 import traceback
@@ -9,15 +9,21 @@ PLC_PORT = 502
 
 data_prot = { # data : [addr, count, type(byte:0, int:1, float:2)]
     'auto_mode' : [157, 1, 1], # 0: 手动； 1：自动
+    # 'dest1' : [158, 2, 2],
+    # 'current1' : [65, 2, 2],
     'dest1' : [158, 2, 2],
     'current1' : [65, 2, 2],
     'dest2' : [160, 2, 2],
     'current2' : [87, 2, 2],
+    'dest3' : [162, 2, 2],
+    'current3' : [109, 2, 2],
+    'dest4' : [164, 2, 2],
+    'current4' : [131, 2, 2],
     'lat' : [151, 2, 2],
     'lon' : [153, 2, 2],
     'height' : [155, 2, 2], 
-    'rolling' : [174, 2, 2],
-    'trim' : [176, 2, 2],
+    'rolling' : [0, 2, 2],
+    'trim' : [2, 2, 2],
     'speed': [178, 2, 2],
     # 电机参数
 
@@ -27,11 +33,29 @@ data_prot = { # data : [addr, count, type(byte:0, int:1, float:2)]
     'm_p_1' : [73, 2, 1],  # 电机功率
     'm_t_1' : [75, 2, 1],  # 电机温度
 
-    'm_rpm_2' : [67, 2, 1],  # 电机转速
-    'm_v_2' : [69, 2, 1],  # 电机电压
-    'm_i_2' : [71, 2, 1],  # 电机电流
-    'm_p_2' : [73, 2, 1],  # 电机功率
-    'm_t_2' : [75, 2, 1],  # 电机温度
+    'm_rpm_2' : [89, 2, 1],  # 电机转速
+    'm_v_2' : [91, 2, 1],  # 电机电压
+    'm_i_2' : [93, 2, 1],  # 电机电流
+    'm_p_2' : [95, 2, 1],  # 电机功率
+    'm_t_2' : [97, 2, 1],  # 电机温度
+
+    'm_rpm_3' : [111, 2, 1],  # 电机转速
+    'm_v_3' : [113, 2, 1],  # 电机电压
+    'm_i_3' : [115, 2, 1],  # 电机电流
+    'm_p_3' : [117, 2, 1],  # 电机功率
+    'm_t_3' : [119, 2, 1],  # 电机温度
+
+    'm_rpm_4' : [133, 2, 1],  # 电机转速
+    'm_v_4' : [135, 2, 1],  # 电机电压
+    'm_i_4' : [137, 2, 1],  # 电机电流
+    'm_p_4' : [139, 2, 1],  # 电机功率
+    'm_t_4' : [141, 2, 1],  # 电机温度
+
+    # 零位
+    'zero_1' : [169, 1, 1],
+    'zero_2' : [170, 1, 1],
+    'zero_3' : [171, 1, 1],
+    'zero_4' : [172, 1, 1]
 }
 
 logger = Logger.GetLogger(__name__)
@@ -157,6 +181,16 @@ def float_to_ieee754_hex(f):
     register_data = struct.unpack('>HH', packed)  # 拆成 2 个 16 位整数
     return register_data
 
+if os.path.exists('model/extension_limit_model.pkl'):
+    extension_limit_model = joblib.load('model/extension_limit_model.pkl')
+else:
+    extension_limit_model = None
+
+def get_max_extension(speed):
+    if extension_limit_model:
+        return extension_limit_model(speed)
+    else:
+        return 1.0
     
 class PlcClient():
     client = None
@@ -167,15 +201,18 @@ class PlcClient():
             traceback.print_stack()
             PlcClient.client = connectPLC()
             if PlcClient.client is not None:
-                setCmd(PlcClient.client, 'auto_mode', 1)
+                # setCmd(PlcClient.client, 'auto_mode', 1)
                 PlcClient.client_count += 1
     
     def __del__(self):
         PlcClient.client_count -= 1
         if PlcClient.client_count == 0:
             print('disconnect')
-            setCmd(PlcClient.client, 'dest1', 0)
-            setCmd(PlcClient.client, 'dest2', 0)
+            # setCmd(PlcClient.client, 'dest1', 0)
+            # setCmd(PlcClient.client, 'dest2', 0)
+            # setCmd(PlcClient.client, 'dest3', 0)
+            # setCmd(PlcClient.client, 'dest4', 0)
+            # setCmd(PlcClient.client, 'auto_mode', 0)
             disconnectPLC(PlcClient.client)
             PlcClient.client = None
 
@@ -185,8 +222,8 @@ class PlcClient():
 # plc_client = None
 #     def get_plc_client():
         
-if __name__ == '__main__':
-    client = connectPLC()
+# if __name__ == '__main__':
+#     client = connectPLC()
     # setCmd(client, 'switch', 8)
     # try:
     #     while True:
@@ -211,14 +248,76 @@ if __name__ == '__main__':
     # print(getData(client, 'm_p_2'))
     # print(getData(client, 'm_t_2'))
     # data_name = ['m_v_1', 'm_i_1', 'm_p_1', 'm_t_1', 'm_v_2', 'm_i_2', 'm_p_2', 'm_t_2', 'trim', 'rolling',  'current1']
-    data_name = ['current1', 'm_t_1', 'auto_mode']
-    datas = []
-    for name in data_name:
-        data = getData(client, name)
-        datas.append(data)
-    print(datas)
-    setCmd(client, 'auto_mode', 1)
-    print(getData(client, 'auto_mode'))
-    setCmd(client, 'dest1', 25.5)
-    disconnectPLC(client)
+    # data_name = ['current1', 'm_t_1', 'auto_mode']
+    # datas = []
+    # for name in data_name:
+    #     data = getData(client, name)
+    #     datas.append(data)
+    # print(datas)
+    # setCmd(client, 'auto_mode', 1)
+    # print(getData(client, 'auto_mode'))
+    # setCmd(client, 'dest1', 25.5)
+    # disconnectPLC(client)
+
+# 设置当前位置为零位，需要显示屏在非手动控制界面设置
+# if __name__ == '__main__':
+#     client = connectPLC()
+    # 设置电机1零位
+#     setCmd(client, 'zero_1', 0)
+#     setCmd(client, 'zero_1', 1)
+
+    # 设置电机2零位
+#     setCmd(client, 'zero_2', 0)
+#     setCmd(client, 'zero_2', 1)
+
+    # 设置电机3零位
+#     setCmd(client, 'zero_3', 0)
+#     setCmd(client, 'zero_3', 1)
+
+    # 设置电机4零位
+#     setCmd(client, 'zero_4', 0)
+#     setCmd(client, 'zero_4', 1)
+
+#     disconnectPLC(client)
+
+# 微调电机1
+# if __name__ == '__main__':
+#     client = connectPLC()
+#     current = getData(client, 'current1')
+#     print(current)
+#     dest = current + 1
+#     print(dest)
+#     setCmd(client, 'dest1', current+1)
+#     # setCmd(client, 'dest1', 0)
+#     disconnectPLC(client)
+
+# 微调电机2
+# if __ name__ == '__main__':
+    # client = connectPLC()
+    # current = getData(client, 'current2')
+    # print(current)
+    # dest = current + 1
+    # setCmd(client, 'dest2', dest)
+    # disconnectPLC(client)
+
+# 微调电机3
+# if __name__ == '__main__':
+#     client = connectPLC()
+#     current = getData(client, 'current3')
+#     print(current)
+#     dest = current + 1
+#     print(dest)
+#     setCmd(client, 'dest3', current+1)
+#     # setCmd(client, 'dest3', 0)
+#     disconnectPLC(client)
+
+# 微调电机4
+# if __ name__ == '__main__':
+    # client = connectPLC()
+    # current = getData(client, 'current4')
+    # print(current)
+    # dest = current + 1
+    # setCmd(client, 'dest4', dest)
+    # disconnectPLC(client)
+
 

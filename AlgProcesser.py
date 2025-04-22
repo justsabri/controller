@@ -1,4 +1,4 @@
-import os
+import os, joblib
 from datetime import datetime
 import pandas as pd
 from PlcController import *
@@ -6,7 +6,10 @@ import Logger
 import queue
 import time
 import threading
-import PID_20250113_1 as pidAlg
+from scipy.interpolate import CubicSpline
+# import PID_20250113_1 as pidAlg
+# import PID_20250324_2 as pidAlg
+import PID_20250422 as pidAlg
 
 class AlgorithmProcesser():
     def __init__(self, feq, client):
@@ -16,10 +19,20 @@ class AlgorithmProcesser():
         self.client = client
         self.cb = None
         self.mode = 0
+        if os.path.exists('model/speed2extension_model.pkl'):
+            self.speed2extension = joblib.load('model/speed2extension_model.pkl')
+        else:
+            self.speed2extension = None
+        
+        if os.path.exists('model/optspeed2extension_model.pkl'):
+            self.optspeed2extension = joblib.load('model/optspeed2extension_model.pkl')
+        else:
+            self.optspeed2extension = None
+
         self.data_queue = queue.Queue()
         self.condition = threading.Condition()
         self.data_flag = False
-        self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current2']
+        self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current3']
         self.sleep_time = 1.0 / feq # unit: second
         self.location_range = [0, 50]
 
@@ -27,8 +40,8 @@ class AlgorithmProcesser():
         self.record_duration = 0.05 # 50ms
         self.thread_record = None
         self.record_event = None
-        self.record_plc_data = ['trim', 'rolling', 'speed', 'current1', 'current2']
-        self.record_data_name = ['time', 'trim', 'rolling', 'speed', 'current1', 'current2', 'mode', 'dest1', 'dest1']
+        self.record_plc_data = ['trim', 'rolling', 'speed', 'current1', 'current3']
+        self.record_data_name = ['time', 'trim', 'rolling', 'speed', 'current1', 'current3', 'mode', 'dest1', 'dest3']
 
         self.data_thread = None
         self.process_thread = None
@@ -70,28 +83,58 @@ class AlgorithmProcesser():
             # data送入算法处理，获取算法执行结果
             self.logger.debug('mode ' + str(self.mode) + ' angle ' + str(data[0]) + ' current '+ str(data[3]))
             print('mode ' + str(self.mode) + ' angle ' + str(data[0]) + ' current '+ str(data[3]))
-            dest = pidAlg.PID_parameter_transfer(self.mode, data[0], 0, data[1], 0, data[3])
+            # dest = pidAlg.PID_parameter_transfer(self.mode, data[0], 0, data[1], 0, data[3])
+            # self.logger.debug('dest ' + str(dest))
+            # # 发送取数据事件
+            # if self.record_event:
+            #     if self.mode == 1:
+            #         self.record_data = [*data, self.mode, dest]
+            #     else:
+            #         self.record_data = [*data, self.mode, *dest]
+            #     self.record_event.set()
+            
+            # # 执行结果下发给plc
+            # if self.client is not None:
+            #     if self.mode == 1:
+            #         self.setLocation('both', dest, dest)
+            #         percent = int(100.0 * dest / self.location_range[1])
+            #         if self.cb:
+            #             self.cb(percent, percent)
+            #     elif self.mode == 2:
+            #         self.setLocation('both', dest[0], dest[1])
+            #         percent1 = int(100.0 * dest[0] / self.location_range[1])
+            #         percent2 = int(100.0 * dest[0] / self.location_range[1])
+            #         if self.cb:
+            #             self.cb(percent1, percent2)
+            # else:
+            #     self.logger.error('client is null')
+            if self.mode == 3: # 速度优先
+                if self.speed2extension is not None and self.optspeed2extension is not None:
+                    current_speed = data[2]
+                    current_extension1 = data[3]
+                    current_extension2 = data[4]
+                    target_extension = self.optspeed2extension(current_speed)
+                    if abs(target_extension - current_extension1) > 3.0:
+                        dest_extension = min(current_extension1, self.location_range[1] * get_max_extension(current_speed))
+                        dest = (dest_extension, dest_extension)
+                    else:
+                        dest = (-0.1, -0.1)
+                else:
+                    print('no self.cs')
+            else:
+                dest = pidAlg.PID_parameter_transfer(self.mode, data[2], (data[0], 0), (data[1], 0), (data[3], data[4]), self.location_range[1] * get_max_extension(data[2]))
             self.logger.debug('dest ' + str(dest))
             # 发送取数据事件
             if self.record_event:
-                if self.mode == 1:
-                    self.record_data = [*data, self.mode, dest]
-                else:
-                    self.record_data = [*data, self.mode, *dest]
+                self.record_data = [*data, self.mode, *dest]
                 self.record_event.set()
             # 执行结果下发给plc
             if self.client is not None:
-                if self.mode == 1:
-                    self.setLocation('both', dest, dest)
-                    percent = int(100.0 * dest / self.location_range[1])
-                    if self.cb:
-                        self.cb(percent, percent)
-                elif self.mode == 2:
-                    self.setLocation('both', dest[0], dest[1])
-                    percent1 = int(100.0 * dest[0] / self.location_range[1])
-                    percent2 = int(100.0 * dest[0] / self.location_range[1])
-                    if self.cb:
-                        self.cb(percent1, percent2)
+                self.setLocation('both', dest[0], dest[1])
+                percent1 = int(100.0 * dest[0] / self.location_range[1])
+                percent2 = int(100.0 * dest[1] / self.location_range[1])
+                if self.cb:
+                    self.cb(percent1, percent2)
             else:
                 self.logger.error('client is null')
         print('stop process')
@@ -135,11 +178,15 @@ class AlgorithmProcesser():
         names = []
         if side == 'left':
             names.append('dest1')
-        elif side == 'right':
             names.append('dest2')
+        elif side == 'right':
+            names.append('dest3')
+            names.append('dest4')
         elif side == 'both':
             names.append('dest1')
             names.append('dest2')
+            names.append('dest3')
+            names.append('dest4')
         for i,name in enumerate(names):
             if self.location_range[0] <= args[i] <= self.location_range[1]:
                 setCmd(self.client, name, args[i])
@@ -148,11 +195,15 @@ class AlgorithmProcesser():
         names = []
         if side == 'left':
             names.append('dest1')
-        elif side == 'right':
             names.append('dest2')
+        elif side == 'right':
+            names.append('dest3')
+            names.append('dest4')
         elif side == 'both':
             names.append('dest1')
             names.append('dest2')
+            names.append('dest3')
+            names.append('dest4')
         for i,name in enumerate(names):
             debug_info = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
             self.logger.debug(debug_info)

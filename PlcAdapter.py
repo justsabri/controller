@@ -4,7 +4,7 @@ from SystemMonitor import SysMonitor
 from DataAcquisition import DataAcquisition
 
 class PlcAdapter():
-    def __init__(self):
+    def __init__(self, ip = '127.0.0.1', port = '80'):
         self.plc_client = PlcClient()
         self.client = self.plc_client.getClient()
         self.alg_process = AlgorithmProcesser(50, self.client)

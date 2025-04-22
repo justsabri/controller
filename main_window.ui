@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>793</width>
-    <height>799</height>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>截流板控制系统上位机V1.0</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="horizontalLayoutWidget">
@@ -23,7 +23,7 @@
       <height>511</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,0,2">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,0,0">
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="sizePolicy">
@@ -33,7 +33,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="main_tab">
         <attribute name="title">
@@ -241,6 +241,13 @@
             </property>
            </widget>
           </item>
+          <item row="4" column="1">
+           <widget class="QPushButton" name="speed_first">
+            <property name="text">
+             <string>速度优先</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </widget>
@@ -333,11 +340,83 @@
           <string>结束记录</string>
          </property>
         </widget>
+        <widget class="QLineEdit" name="filePath">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>270</y>
+           <width>251</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>240</y>
+           <width>121</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>速度优先曲线生成</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="browse_speed_file_btn">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>270</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>打开文件</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="generate_model_btn">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>310</y>
+           <width>91</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>生成模型</string>
+         </property>
+        </widget>
        </widget>
       </widget>
      </item>
      <item>
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::VLine</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="1">
+        <widget class="MWidget" name="m2" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>200</height>
+          </size>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="MWidget" name="m1" native="true">
          <property name="sizePolicy">
@@ -360,8 +439,30 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="MWidget" name="m2" native="true">
+       <item row="1" column="0">
+        <widget class="MWidget" name="m3" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>200</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>100</width>
+           <height>200</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="MWidget" name="m4" native="true">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -372,20 +473,17 @@
        </item>
       </layout>
      </item>
-     <item>
-      <widget class="QFrame" name="frame">
-       <property name="frameShape">
-        <enum>QFrame::VLine</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="lineWidth">
-        <number>3</number>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="led" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>15</width>
+      <height>15</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
