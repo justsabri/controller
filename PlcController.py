@@ -209,8 +209,8 @@ class PlcClient():
         if PlcClient.client_count == 0:
             print('disconnect')
             # setCmd(PlcClient.client, 'dest1', 0)
-            # setCmd(PlcClient.client, 'dest2', 0)
-            # setCmd(PlcClient.client, 'dest3', 0)
+            setCmd(PlcClient.client, 'dest2', 0)
+            setCmd(PlcClient.client, 'dest3', 0)
             # setCmd(PlcClient.client, 'dest4', 0)
             # setCmd(PlcClient.client, 'auto_mode', 0)
             disconnectPLC(PlcClient.client)
@@ -260,15 +260,15 @@ class PlcClient():
     # disconnectPLC(client)
 
 # 设置当前位置为零位，需要显示屏在非手动控制界面设置
-# if __name__ == '__main__':
-#     client = connectPLC()
+if __name__ == '__main__':
+    client = connectPLC()
     # 设置电机1零位
 #     setCmd(client, 'zero_1', 0)
 #     setCmd(client, 'zero_1', 1)
 
     # 设置电机2零位
-#     setCmd(client, 'zero_2', 0)
-#     setCmd(client, 'zero_2', 1)
+    # setCmd(client, 'zero_2', 0)
+    # setCmd(client, 'zero_2', 1)
 
     # 设置电机3零位
 #     setCmd(client, 'zero_3', 0)
@@ -278,7 +278,7 @@ class PlcClient():
 #     setCmd(client, 'zero_4', 0)
 #     setCmd(client, 'zero_4', 1)
 
-#     disconnectPLC(client)
+    disconnectPLC(client)
 
 # 微调电机1
 # if __name__ == '__main__':

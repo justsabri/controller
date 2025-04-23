@@ -118,11 +118,15 @@ def PID_parameter_transfer(mode, speed, pitch_angle_params, heel_angle_params,
     """
     # 解包当前伸缩量参数
     left_current, right_current = actual_extensions  # 左侧当前值赋值给left_current，右侧同理
+    print(f"左侧截流板当前伸缩量：{left_current}")
+    print(f"右侧截流板当前伸缩量：{right_current}")
 
     if mode == 1:  # 纵倾控制模式
         # 验证纵倾参数的目标角度为None时设定默认值
         if pitch_angle_params[1] == None:
             pitch_angle_params[1] = -1.0
+
+        print(f"当前纵倾角度：{pitch_angle_params[0]}")
 
         # 调用纵倾控制核心算法
         new_left, new_right = PID_pitch_control(
@@ -134,10 +138,15 @@ def PID_parameter_transfer(mode, speed, pitch_angle_params, heel_angle_params,
             pid=pid_pitch  # PID控制器实例
         )
 
+        print(f"左侧截流板目标伸缩量：{new_left},右侧截流板伸缩量：{new_right}")
+
     elif mode == 2:  # 横倾控制模式
         # 验证横倾参数的目标角度为None时设定默认值
         if heel_angle_params[1] == None:
             heel_angle_params[1] = 0
+
+        print(f"当前横倾角度：{heel_angle_params[0]}")
+
 
         # 调用横倾控制核心算法
         new_left, new_right = PID_heel_control(
@@ -149,6 +158,9 @@ def PID_parameter_transfer(mode, speed, pitch_angle_params, heel_angle_params,
             pid=pid_heel  # PID控制器实例
         )
 
+        print(f"左侧截流板目标伸缩量：{new_left},右侧截流板伸缩量：{new_right}")
+
+
     elif mode == 3:  # 舒适优先模式（功能未实现，返回当前值）
         new_left, new_right = left_current, right_current  # 保持当前状态
 
@@ -157,6 +169,7 @@ def PID_parameter_transfer(mode, speed, pitch_angle_params, heel_angle_params,
 
     else:
         raise ValueError("无效控制模式，当前支持模式：纵倾控制/横倾控制/舒适优先/协调转弯")
+
 
     return new_left, new_right  # 返回更新后的伸缩量元组
 
@@ -176,8 +189,8 @@ def PID_pitch_control(current_angle, target_angle, left_current, right_current, 
     output = pid.compute(error, dt)  # 通过PID计算调整量
 
     # 同步调整两侧伸缩量（同增同减）
-    new_left = left_current + output  # 计算左侧新伸缩量
-    new_right = right_current + output  # 计算右侧新伸缩量
+    new_left = left_current - output  # 计算左侧新伸缩量
+    new_right = right_current - output  # 计算右侧新伸缩量
 
     # 应用物理限制：不允许小于0或超过最大值
     new_left = max(0.0, min(new_left, max_extension))  # 限制左侧范围

@@ -34,7 +34,10 @@
 }</string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>截流板控制系统-用户登录</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

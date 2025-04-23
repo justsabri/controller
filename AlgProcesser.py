@@ -32,7 +32,7 @@ class AlgorithmProcesser():
         self.data_queue = queue.Queue()
         self.condition = threading.Condition()
         self.data_flag = False
-        self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current3']
+        self.data_name = ['trim', 'rolling', 'speed', 'current2', 'current3']
         self.sleep_time = 1.0 / feq # unit: second
         self.location_range = [0, 50]
 
@@ -40,8 +40,8 @@ class AlgorithmProcesser():
         self.record_duration = 0.05 # 50ms
         self.thread_record = None
         self.record_event = None
-        self.record_plc_data = ['trim', 'rolling', 'speed', 'current1', 'current3']
-        self.record_data_name = ['time', 'trim', 'rolling', 'speed', 'current1', 'current3', 'mode', 'dest1', 'dest3']
+        self.record_plc_data = ['trim', 'rolling', 'speed', 'current2', 'current3']
+        self.record_data_name = ['time', 'trim', 'rolling', 'speed', 'current2', 'current3', 'mode', 'dest2', 'dest3']
 
         self.data_thread = None
         self.process_thread = None
@@ -175,35 +175,13 @@ class AlgorithmProcesser():
         return datas
     
     def setLocation(self, side, *args):
-        names = []
-        if side == 'left':
-            names.append('dest1')
-            names.append('dest2')
-        elif side == 'right':
-            names.append('dest3')
-            names.append('dest4')
-        elif side == 'both':
-            names.append('dest1')
-            names.append('dest2')
-            names.append('dest3')
-            names.append('dest4')
+        names = self.get_names_by_side(side)
         for i,name in enumerate(names):
             if self.location_range[0] <= args[i] <= self.location_range[1]:
                 setCmd(self.client, name, args[i])
     
     def setLocationByPercent(self, side, *args):
-        names = []
-        if side == 'left':
-            names.append('dest1')
-            names.append('dest2')
-        elif side == 'right':
-            names.append('dest3')
-            names.append('dest4')
-        elif side == 'both':
-            names.append('dest1')
-            names.append('dest2')
-            names.append('dest3')
-            names.append('dest4')
+        names = self.get_names_by_side(side)
         for i,name in enumerate(names):
             debug_info = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
             self.logger.debug(debug_info)
@@ -211,6 +189,21 @@ class AlgorithmProcesser():
             if 0 <= args[i] <= 100:
                 setCmd(self.client, name, args[i] * (self.location_range[1] / 100.0))
     
+    def get_names_by_side(self, side):
+        names = []
+        if side == 'left':
+            # names.append('dest1')
+            names.append('dest2')
+        elif side == 'right':
+            names.append('dest3')
+            # names.append('dest4')
+        elif side == 'both':
+            # names.append('dest1')
+            names.append('dest2')
+            names.append('dest3')
+            # names.append('dest4')
+        return names
+
     def record_impl(self):
         if self.client is None:
             return

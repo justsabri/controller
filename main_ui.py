@@ -24,8 +24,8 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
 
         self.m1.m_name.setText(self.m1.m_name.text() + '1')
         self.m2.m_name.setText(self.m2.m_name.text() + '2')
-        self.m1.m_name.setText(self.m1.m_name.text() + '3')
-        self.m2.m_name.setText(self.m2.m_name.text() + '4')
+        self.m3.m_name.setText(self.m3.m_name.text() + '3')
+        self.m4.m_name.setText(self.m4.m_name.text() + '4')
 
         # 连接 stateChanged 信号到槽函数
         self.update_progress_signal.connect(self.update_progress)

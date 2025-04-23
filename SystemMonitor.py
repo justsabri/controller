@@ -71,7 +71,7 @@ class SysMonitor():
     
     def getInitValue(self):
         datas = []
-        for name in ['current1', 'current2']:
+        for name in ['current2', 'current3']:
             data = getData(self.client, name)
             datas.append(data * 100.0 / self.location_range[1])
         return datas
