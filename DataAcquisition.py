@@ -66,6 +66,8 @@ class DataAcquisition:
         while self.isEnuming and i < max_extension:
             setCmd(self.client, 'dest1', i)
             setCmd(self.client, 'dest2', i)
+            setCmd(self.client, 'dest3', i)
+            setCmd(self.client, 'dest4', i)
             time.sleep(self.location_duration)
             i = i + self.location_step
             percent = int(100.0 * (i+1) / max_extension)

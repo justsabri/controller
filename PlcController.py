@@ -219,6 +219,27 @@ class PlcClient():
     def getClient(self):
         return PlcClient.client
 
+def set_zero(i):
+    name = 'zero_' + str(i)
+    print(name)
+    client = connectPLC()
+    # 设置电机i零位
+    setCmd(client, name, 0)
+    setCmd(client, name, 1)
+    disconnectPLC(client)
+
+def set_by_step(i, step):
+    current_name = 'current' + str(i)
+    dest_name = 'dest' + str(i)
+    print()
+    client = connectPLC()
+    # 按步长移动
+    current = getData(client, current_name)
+    print(current)
+    dest = current + step
+    setCmd(client, dest_name, dest)
+    disconnectPLC(client)
+
 # plc_client = None
 #     def get_plc_client():
         
@@ -260,64 +281,18 @@ class PlcClient():
     # disconnectPLC(client)
 
 # 设置当前位置为零位，需要显示屏在非手动控制界面设置
+# if __name__ == '__main__':
+#     set_zero(1)
+
+# # 微调电机1
+# if __name__ == '__main__':
+#     set_by_step(2, -5)
+
 if __name__ == '__main__':
-    client = connectPLC()
-    # 设置电机1零位
-#     setCmd(client, 'zero_1', 0)
-#     setCmd(client, 'zero_1', 1)
+    print('1')
+    print(get_max_extension(28.7))
+    print('2')
 
-    # 设置电机2零位
-    # setCmd(client, 'zero_2', 0)
-    # setCmd(client, 'zero_2', 1)
 
-    # 设置电机3零位
-#     setCmd(client, 'zero_3', 0)
-#     setCmd(client, 'zero_3', 1)
-
-    # 设置电机4零位
-#     setCmd(client, 'zero_4', 0)
-#     setCmd(client, 'zero_4', 1)
-
-    disconnectPLC(client)
-
-# 微调电机1
-# if __name__ == '__main__':
-#     client = connectPLC()
-#     current = getData(client, 'current1')
-#     print(current)
-#     dest = current + 1
-#     print(dest)
-#     setCmd(client, 'dest1', current+1)
-#     # setCmd(client, 'dest1', 0)
-#     disconnectPLC(client)
-
-# 微调电机2
-# if __ name__ == '__main__':
-    # client = connectPLC()
-    # current = getData(client, 'current2')
-    # print(current)
-    # dest = current + 1
-    # setCmd(client, 'dest2', dest)
-    # disconnectPLC(client)
-
-# 微调电机3
-# if __name__ == '__main__':
-#     client = connectPLC()
-#     current = getData(client, 'current3')
-#     print(current)
-#     dest = current + 1
-#     print(dest)
-#     setCmd(client, 'dest3', current+1)
-#     # setCmd(client, 'dest3', 0)
-#     disconnectPLC(client)
-
-# 微调电机4
-# if __ name__ == '__main__':
-    # client = connectPLC()
-    # current = getData(client, 'current4')
-    # print(current)
-    # dest = current + 1
-    # setCmd(client, 'dest4', dest)
-    # disconnectPLC(client)
 
 
