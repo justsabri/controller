@@ -208,10 +208,10 @@ class PlcClient():
         PlcClient.client_count -= 1
         if PlcClient.client_count == 0:
             print('disconnect')
-            # setCmd(PlcClient.client, 'dest1', 0)
+            setCmd(PlcClient.client, 'dest1', 0)
             setCmd(PlcClient.client, 'dest2', 0)
             setCmd(PlcClient.client, 'dest3', 0)
-            # setCmd(PlcClient.client, 'dest4', 0)
+            setCmd(PlcClient.client, 'dest4', 0)
             # setCmd(PlcClient.client, 'auto_mode', 0)
             disconnectPLC(PlcClient.client)
             PlcClient.client = None

@@ -14,8 +14,9 @@ class DataAcquisition:
         self.isRecording = False
         self.duration = 0.050 # 50ms
         self.location_range = [0, 50]
-        self.location_step = 1
+        self.location_step = 5
         self.location_duration = 1 # 30s
+        self.current_speed = 0
         self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current2']
         self.file_name = 'test_data_at_speed_'
         self.record_file_name = ''
@@ -49,7 +50,7 @@ class DataAcquisition:
         
         while self.isTesting:
             datas = self.getAllTestData()
-            
+            self.current_speed = datas[2]
             datas_padded = datas + [np.nan] * (len(self.test_df.columns) - len(datas))
             print(datas)
             print(datas_padded)
@@ -61,12 +62,13 @@ class DataAcquisition:
         
     def enumerateLocation(self):
         i = self.location_range[0]
-        while self.isEnuming and i < self.location_range[1]:
+        max_extension = self.location_range[1] * get_max_extension(self.current_speed)
+        while self.isEnuming and i < max_extension:
             setCmd(self.client, 'dest1', i)
             setCmd(self.client, 'dest2', i)
             time.sleep(self.location_duration)
             i = i + self.location_step
-            percent = int(100.0 * (i+1) / self.location_range[1])
+            percent = int(100.0 * (i+1) / max_extension)
             self.cb(percent)
 
     

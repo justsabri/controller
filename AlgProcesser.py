@@ -192,16 +192,16 @@ class AlgorithmProcesser():
     def get_names_by_side(self, side):
         names = []
         if side == 'left':
-            # names.append('dest1')
+            names.append('dest1')
             names.append('dest2')
         elif side == 'right':
             names.append('dest3')
-            # names.append('dest4')
+            names.append('dest4')
         elif side == 'both':
-            # names.append('dest1')
+            names.append('dest1')
             names.append('dest2')
             names.append('dest3')
-            # names.append('dest4')
+            names.append('dest4')
         return names
 
     def record_impl(self):

@@ -85,6 +85,21 @@ def simulation_angle(speed, x):
     return z
 
 
+"""
+PID调试方法，往往ku初始值都比较大，比如取值2.0
+def zn_tuning(ku, tu):  # ku:临界增益, tu:振荡周期
+    Kp = 0.6*ku
+    Ki = 2*Kp/tu
+    Kd = Kp*tu/8
+    return (Kp, Ki, Kd)
+    
+# 观察响应曲线，按需微调
+if 超调过大:
+    Kp *= 0.8
+    Kd *= 1.2
+elif 收敛过慢:
+    Ki *= 1.5
+"""
 # 全局参数
 # 纵倾控制全局参数
 Kp_pitch = 0.6  # 纵倾比例系数
@@ -96,7 +111,7 @@ Kp_heel = 0.5  # 横倾比例系数
 Ki_heel = 0.01  # 横倾积分系数
 Kd_heel = 0.05  # 横倾微分系数
 
-max_extension = 50  # 截流板最大伸缩量（单位mm）
+
 dt = 0.1  # 时间间隔（单位秒）
 
 # 初始化PID控制器
