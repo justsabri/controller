@@ -18,8 +18,9 @@ class PlcAdapter():
     
     def disconnect(self):
         print('adpter disconnect')
-        del self.plc_client
-        self.client = None
+        if self.plc_client:
+            del self.plc_client
+            self.client = None
 
     def get_alg_process(self):
         return self.alg_process

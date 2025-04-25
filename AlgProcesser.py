@@ -40,8 +40,8 @@ class AlgorithmProcesser():
         self.record_duration = 0.05 # 50ms
         self.thread_record = None
         self.record_event = None
-        self.record_plc_data = ['trim', 'rolling', 'speed', 'current2', 'current3']
-        self.record_data_name = ['time', 'trim', 'rolling', 'speed', 'current2', 'current3', 'mode', 'dest2', 'dest3']
+        self.record_plc_data = ['lat', 'lon', 'trim', 'rolling', 'speed', 'current2', 'current3']
+        self.record_data_name = ['time', *self.record_plc_data, 'mode', 'dest2', 'dest3']
 
         self.data_thread = None
         self.process_thread = None
@@ -70,10 +70,12 @@ class AlgorithmProcesser():
     def stop_process(self):
         self.data_flag = False
         if not self.process_thread is None:
-            self.process_thread.join()
+            if self.process_thread.is_alive():
+                self.process_thread.join()
             self.process_thread = None
         if not self.data_thread is None:
-            self.data_thread.join()
+            if self.data_thread.is_alive():
+                self.data_thread.join()
             self.data_thread = None
         self.mode = 0
 
@@ -83,31 +85,7 @@ class AlgorithmProcesser():
             # data送入算法处理，获取算法执行结果
             self.logger.debug('mode ' + str(self.mode) + ' angle ' + str(data[0]) + ' current '+ str(data[3]))
             print('mode ' + str(self.mode) + ' angle ' + str(data[0]) + ' current '+ str(data[3]))
-            # dest = pidAlg.PID_parameter_transfer(self.mode, data[0], 0, data[1], 0, data[3])
-            # self.logger.debug('dest ' + str(dest))
-            # # 发送取数据事件
-            # if self.record_event:
-            #     if self.mode == 1:
-            #         self.record_data = [*data, self.mode, dest]
-            #     else:
-            #         self.record_data = [*data, self.mode, *dest]
-            #     self.record_event.set()
-            
-            # # 执行结果下发给plc
-            # if self.client is not None:
-            #     if self.mode == 1:
-            #         self.setLocation('both', dest, dest)
-            #         percent = int(100.0 * dest / self.location_range[1])
-            #         if self.cb:
-            #             self.cb(percent, percent)
-            #     elif self.mode == 2:
-            #         self.setLocation('both', dest[0], dest[1])
-            #         percent1 = int(100.0 * dest[0] / self.location_range[1])
-            #         percent2 = int(100.0 * dest[0] / self.location_range[1])
-            #         if self.cb:
-            #             self.cb(percent1, percent2)
-            # else:
-            #     self.logger.error('client is null')
+
             if self.mode == 3: # 速度优先
                 if self.speed2extension is not None and self.optspeed2extension is not None:
                     current_speed = data[2]
@@ -139,7 +117,6 @@ class AlgorithmProcesser():
                 self.logger.error('client is null')
         print('stop process')
 
-
     def wait_for_next_data(self):
         with self.condition:
             if self.data_queue.empty():
@@ -147,7 +124,6 @@ class AlgorithmProcesser():
             data = self.data_queue.get()
         return data
                 
-
     def data_threadloop(self):
         while self.data_flag:
             # 获取所需数据并打包
@@ -175,19 +151,27 @@ class AlgorithmProcesser():
         return datas
     
     def setLocation(self, side, *args):
+        if side == 'both':
+            self.setLocation('left', args[0])
+            self.setLocation('right', args[1])
+            return
         names = self.get_names_by_side(side)
         for i,name in enumerate(names):
-            if self.location_range[0] <= args[i] <= self.location_range[1]:
-                setCmd(self.client, name, args[i])
+            if self.location_range[0] <= args[0] <= self.location_range[1]:
+                setCmd(self.client, name, args[0])
     
     def setLocationByPercent(self, side, *args):
+        if side == 'both':
+            self.setLocation('left', args[0])
+            self.setLocation('right', args[1])
+            return
         names = self.get_names_by_side(side)
         for i,name in enumerate(names):
-            debug_info = str(i) + ' ' + name + ' ' + str(args[i] * (self.location_range[1] / 100.0))
+            debug_info = str(i) + ' ' + name + ' ' + str(args[0] * (self.location_range[1] / 100.0))
             self.logger.debug(debug_info)
-            print(i, name, args[i] * (self.location_range[1] / 100.0))
-            if 0 <= args[i] <= 100:
-                setCmd(self.client, name, args[i] * (self.location_range[1] / 100.0))
+            print(i, name, args[0] * (self.location_range[1] / 100.0))
+            if 0 <= args[0] <= 100:
+                setCmd(self.client, name, args[0] * (self.location_range[1] / 100.0))
     
     def get_names_by_side(self, side):
         names = []
@@ -254,11 +238,15 @@ class AlgorithmProcesser():
 
     def stop_record(self):
         self.isRecording = False
-        self.record_event.set()
+        if self.record_event:
+            self.record_event.set()
         if not self.thread_record is None:
-            self.thread_record.join()
+            if self.thread_record.is_alive():
+                self.thread_record.join()
         self.record_event = None
-        return self.record_file_name
+        file_name = self.record_file_name
+        self.record_file_name = None
+        return file_name
         
 
 

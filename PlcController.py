@@ -21,10 +21,10 @@ data_prot = { # data : [addr, count, type(byte:0, int:1, float:2)]
     'current4' : [131, 2, 2],
     'lat' : [151, 2, 2],
     'lon' : [153, 2, 2],
-    'height' : [155, 2, 2], 
-    'rolling' : [0, 2, 2],
-    'trim' : [2, 2, 2],
-    'speed': [178, 2, 2],
+    'height' : [155, 2, 2],
+    'rolling' : [2, 2, 2],
+    'trim' : [0, 2, 2],
+    'speed': [55, 2, 2],
     # 电机参数
 
     'm_rpm_1' : [67, 2, 1],  # 电机转速
@@ -107,6 +107,10 @@ def getData(client, data_name):
         # 示例：访问特定寄存器的值
         # logger.info(f"Value of Register {addr}: {registers[0]}")  # 第1个寄存器值
 
+        # tmp: 如果是速度，将速度从m/s转换为kn
+        if data_name == 'speed':
+            res = res * 1.925
+
         return res
 
 def setCmd(client, data_name, data):
@@ -181,12 +185,12 @@ def float_to_ieee754_hex(f):
     register_data = struct.unpack('>HH', packed)  # 拆成 2 个 16 位整数
     return register_data
 
+extension_limit_model = None
 if os.path.exists('model/extension_limit_model.pkl'):
     extension_limit_model = joblib.load('model/extension_limit_model.pkl')
-else:
-    extension_limit_model = None
 
 def get_max_extension(speed):
+    global extension_limit_model
     if extension_limit_model:
         return extension_limit_model(speed)
     else:
@@ -290,7 +294,7 @@ def set_by_step(i, step):
 
 if __name__ == '__main__':
     print('1')
-    print(get_max_extension(28.7))
+    print(get_max_extension(10))
     print('2')
 
 

@@ -17,6 +17,11 @@ QPushButton {
     font-size: 14px;
 }
 
+QPushButton:pressed {
+    background-color: #45A049;        /* 按下状态 */
+    color: white;
+}
+
 QPushButton:hover {
-    background-color: #45A049;
+    background-color: #45A049;        /* 鼠标悬停 */
 }

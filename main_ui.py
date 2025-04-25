@@ -107,7 +107,8 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
             self.alg_process.start_record()
         else:  # 0 表示未选中 (Qt.Unchecked)
             file_name = self.alg_process.stop_record()
-            self.file_label.setText(file_name)
+            if file_name:
+                self.file_label.setText(file_name)
 
     def on_up_clicked(self):
         self.decrease_progress('both')
@@ -335,11 +336,12 @@ class IPCWindow(QMainWindow, Ui_MainWindow):
 
         self.trim_display.setText(str(round(datas[0], 2)))
         self.roll_display.setText(str(round(datas[1], 2)))
+        self.speed_display.setText(str(round(datas[18], 2)))
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    with open(r"resources/style.qss", "r") as file:
+    with open(r"resources/style.qss", "r", encoding="utf-8") as file:
         app.setStyleSheet(file.read())
     myWin = IPCWindow()
     myWin.show()

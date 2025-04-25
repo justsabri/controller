@@ -15,10 +15,10 @@ class DataAcquisition:
         self.duration = 0.050 # 50ms
         self.location_range = [0, 50]
         self.location_step = 5
-        self.location_duration = 1 # 30s
+        self.location_duration = 10 # 30s 
         self.current_speed = 0
         self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current2']
-        self.file_name = 'test_data_at_speed_'
+        self.file_name = ''
         self.record_file_name = ''
         self.thread_record = None
         self.thread_test = None
@@ -61,17 +61,25 @@ class DataAcquisition:
             time.sleep(self.duration)
         
     def enumerateLocation(self):
+        self.cb(0)
         i = self.location_range[0]
         max_extension = self.location_range[1] * get_max_extension(self.current_speed)
-        while self.isEnuming and i < max_extension:
+        while self.isEnuming and i < max_extension + self.location_step:
             setCmd(self.client, 'dest1', i)
             setCmd(self.client, 'dest2', i)
             setCmd(self.client, 'dest3', i)
             setCmd(self.client, 'dest4', i)
             time.sleep(self.location_duration)
+            max_extension = self.location_range[1] * get_max_extension(self.current_speed)
             i = i + self.location_step
             percent = int(100.0 * (i+1) / max_extension)
             self.cb(percent)
+        self.isTesting = False
+        setCmd(self.client, 'dest1', 0)
+        setCmd(self.client, 'dest2', 0)
+        setCmd(self.client, 'dest3', 0)
+        setCmd(self.client, 'dest4', 0)
+        self.cb(100)
 
     
     def startTest(self, file):
@@ -85,8 +93,9 @@ class DataAcquisition:
         # file path
         if not os.path.exists('data') or not os.path.isdir('data'):
             os.mkdir('data')
-        self.file_name = f'data/' + self.file_name + file + '.csv'
+        self.file_name = f'data/test_data_at_speed_' + file + '.csv'
         self.test_df = pd.DataFrame(columns=self.data_name)
+        print(self.file_name)
         self.test_df.to_csv(self.file_name, index=False, mode='a')
         self.thread_test = threading.Thread(target=self.testBestSpeedImpl)
         # self.thread_test.setDaemon(1)
@@ -98,10 +107,12 @@ class DataAcquisition:
         self.isTesting = False
         self.isEnuming = False
         if not self.enum_thread is None:
-            self.enum_thread.join()
+            if self.enum_thread.is_alive():
+                self.enum_thread.join()
             self.enum_thread = None
         if not self.thread_test is None:
-            self.thread_test.join()
+            if self.thread_test.is_alive():
+                self.thread_test.join()
             self.thread_test = None
 
     def record_impl(self):
@@ -134,7 +145,9 @@ class DataAcquisition:
     def stop_record(self):
         self.isRecording = False
         if not self.thread_record is None:
-            self.thread_record.join()
+            if self.thread_record.is_alive():
+                self.thread_record.join()
+                self.thread_record = None
         return self.record_file_name
 
 # if __name__ == '__main__':

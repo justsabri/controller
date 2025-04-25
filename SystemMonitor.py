@@ -30,7 +30,7 @@ class SysMonitor():
     def __init__(self, client): 
         self.client = client
         self.location_range = [0, 50]
-        self.data_name = ['trim', 'rolling', 'm_v_1', 'm_i_1', 'm_p_1', 'm_t_1', 'm_v_2', 'm_i_2', 'm_p_2', 'm_t_2', 'm_v_3', 'm_i_3', 'm_p_3', 'm_t_3', 'm_v_4', 'm_i_4', 'm_p_4', 'm_t_4']
+        self.data_name = ['trim', 'rolling', 'm_v_1', 'm_i_1', 'm_p_1', 'm_t_1', 'm_v_2', 'm_i_2', 'm_p_2', 'm_t_2', 'm_v_3', 'm_i_3', 'm_p_3', 'm_t_3', 'm_v_4', 'm_i_4', 'm_p_4', 'm_t_4', 'speed']
         self.limit_data = {}
         self.monitor_thread = threading.Thread(target=self.monitor_thread_proc)
         self.monitor_flag = False
@@ -55,7 +55,8 @@ class SysMonitor():
     def stop_monitor(self):
         self.monitor_flag = False
         if not self.monitor_thread is None:
-            self.monitor_thread.join()
+            if self.monitor_thread.is_alive():
+                self.monitor_thread.join()
             self.monitor_thread = None
     
     def getMonitorData(self):
