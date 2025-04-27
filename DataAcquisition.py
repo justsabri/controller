@@ -17,7 +17,8 @@ class DataAcquisition:
         self.location_step = 5
         self.location_duration = 10 # 30s 
         self.current_speed = 0
-        self.data_name = ['trim', 'rolling', 'speed', 'current1', 'current2']
+        self.data_name = ['trim', 'rolling', 'heading', 'speed', 'current1', 'current2', 'lon', 'lat']
+        self.record_data_name = ['time', *self.data_name]
         self.file_name = ''
         self.record_file_name = ''
         self.thread_record = None
@@ -31,7 +32,8 @@ class DataAcquisition:
         self.cb = func
 
     def getAllTestData(self):
-        datas = []
+        current_time = datetime.now().strftime('%H:%M:%S') + f"-{datetime.now().microsecond // 1000:03d}"
+        datas = [current_time]
         for name in self.data_name:
             data = getData(self.client, name)
             datas.append(data)
@@ -94,7 +96,7 @@ class DataAcquisition:
         if not os.path.exists('data') or not os.path.isdir('data'):
             os.mkdir('data')
         self.file_name = f'data/test_data_at_speed_' + file + '.csv'
-        self.test_df = pd.DataFrame(columns=self.data_name)
+        self.test_df = pd.DataFrame(columns=self.record_data_name)
         print(self.file_name)
         self.test_df.to_csv(self.file_name, index=False, mode='a')
         self.thread_test = threading.Thread(target=self.testBestSpeedImpl)
@@ -137,7 +139,7 @@ class DataAcquisition:
             os.mkdir('data')
         current_time = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + f".{datetime.now().microsecond // 1000:03d}"
         self.record_file_name = f'data/' + current_time + '.csv'
-        self.record_df = pd.DataFrame(columns=self.data_name)
+        self.record_df = pd.DataFrame(columns=self.record_data_name)
         self.record_df.to_csv(self.record_file_name, index=False, mode='a')
         self.thread_record = threading.Thread(target=self.record_impl)
         self.thread_record.start()

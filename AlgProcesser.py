@@ -40,7 +40,7 @@ class AlgorithmProcesser():
         self.record_duration = 0.05 # 50ms
         self.thread_record = None
         self.record_event = None
-        self.record_plc_data = ['lat', 'lon', 'trim', 'rolling', 'speed', 'current2', 'current3']
+        self.record_plc_data = ['lat', 'lon', 'heading','trim', 'rolling', 'speed', 'current2', 'current3']
         self.record_data_name = ['time', *self.record_plc_data, 'mode', 'dest2', 'dest3']
 
         self.data_thread = None

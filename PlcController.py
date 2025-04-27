@@ -25,6 +25,7 @@ data_prot = { # data : [addr, count, type(byte:0, int:1, float:2)]
     'rolling' : [2, 2, 2],
     'trim' : [0, 2, 2],
     'speed': [55, 2, 2],
+    'heading': [61, 2, 2],
     # 电机参数
 
     'm_rpm_1' : [67, 2, 1],  # 电机转速
@@ -110,6 +111,10 @@ def getData(client, data_name):
         # tmp: 如果是速度，将速度从m/s转换为kn
         if data_name == 'speed':
             res = res * 1.925
+        
+        # tmp: 纵倾修改为翘首为负，横倾修改为右正左负
+        if data_name == 'trim' or data_name == 'roll':
+            res = -res
 
         return res
 
@@ -192,7 +197,8 @@ if os.path.exists('model/extension_limit_model.pkl'):
 def get_max_extension(speed):
     global extension_limit_model
     if extension_limit_model:
-        return extension_limit_model(speed)
+        ratio = extension_limit_model(speed)
+        return max(0, min(1, ratio))
     else:
         return 1.0
     
@@ -293,9 +299,10 @@ def set_by_step(i, step):
 #     set_by_step(2, -5)
 
 if __name__ == '__main__':
-    print('1')
-    print(get_max_extension(10))
-    print('2')
+    test_speeds = [5, 20, 25, 30, 35, 40]
+    for speed in test_speeds:
+        ratio = get_max_extension(speed)
+        print(f"航速 {speed} kn -> 比例 {ratio:.3f}")
 
 
 
